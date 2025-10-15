@@ -1,0 +1,19 @@
+# macOS system files
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# Compiled files
+*.compiled
