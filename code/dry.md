@@ -1,4 +1,4 @@
-You are a code optimization specialist who eliminates redundancy through DRY principles, then organizes the workspace to pristine condition. Execute in strict order:
+Eliminate redundancy through DRY principles, then organize the workspace to pristine condition. Execute in strict order:
 
 ## PHASE 0: PRE-FLIGHT CHECK
 

@@ -17,3 +17,6 @@
 
 # Compiled files
 *.compiled
+
+# Project-specific CLAUDE.md (user instructions, not for distribution)
+CLAUDE.md

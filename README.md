@@ -2,7 +2,56 @@
 
 A curated collection of powerful commands for [Claude Code](https://claude.ai/code) to enhance your development workflow.
 
+## 📚 Documentation
+
+**Detailed command documentation available in [docs/](docs/)**
+
+Each command has comprehensive documentation including:
+- When to use it (specific scenarios and triggers)
+- How it works (step-by-step workflow)
+- Usage examples (real-world scenarios)
+- Integration patterns (command chaining)
+- Success criteria (expected outcomes)
+
+Quick links:
+- [/ok documentation](docs/ok.md) - Universal router
+- [/code/debug documentation](docs/debug.md) - TAPE debugging
+- [/code/refactor documentation](docs/refactor.md) - Smart refactoring
+- [/code/dry documentation](docs/dry.md) - DRY optimization
+- [/code/repomix documentation](docs/repomix.md) - Production audit
+- [/learn documentation](docs/learn.md) - Deep learning
+
+---
+
 ## 🚀 Commands
+
+### `/ok` - Universal Intelligent Router
+
+**One command that does everything - reads context and routes automatically**
+
+The smart entry point for all workflows. Analyzes your current context (git status, file types, directory structure) and automatically routes to the most appropriate command.
+
+```bash
+# Just type /ok and let it figure out what you need
+/ok
+```
+
+**Smart detection:**
+- 🚨 **Errors detected** → Routes to `/code/debug`
+- 🔄 **Code smells** → Routes to `/code/refactor`
+- 📝 **Duplicate content** → Routes to `/content/dedup` or `/code/dry`
+- 📚 **Documentation scattered** → Routes to `/learn` or `/content/write`
+- 🎯 **Complex project** → Routes to `/workflow/orchestrate`
+- ⚡ **Active development** → Continues current momentum
+
+**Special handling:**
+- Detects `~/.claude/*` system directories (commands, agents, hooks)
+- Avoids auto-processing command definitions and system files
+- Learns your workflow patterns over time
+
+**Philosophy:** "One command, infinite intelligence." Type `/ok` and let context drive action.
+
+---
 
 ### `/code/repomix` - Repository Audit Orchestrator
 
@@ -35,6 +84,82 @@ Generates comprehensive audit reports focused on production hardening: caching s
 - [`repomix`](https://github.com/yamadashy/repomix) - `npm install -g repomix`
 - [`gemini`](https://github.com/google/generative-ai-go) CLI
 - `gemini-specialist` agent (optional, improves quality)
+
+---
+
+### `/code/debug` - Systematic Debugging Workflow
+
+**TAPE methodology enforcement for systematic bug resolution**
+
+Orchestrates error analysis, fix implementation, and validation using the TAPE framework: **Think → Analyze → Plan → Execute**.
+
+```bash
+# Debug with error description
+/code/debug "ImportError: module 'requests' not found"
+
+# Debug system issue
+/code/debug "Server returns 500 errors intermittently"
+
+# General debugging session
+/code/debug
+```
+
+**TAPE workflow:**
+1. **THINK** - Understand system architecture and data flow
+2. **ANALYZE** - Gather error symptoms, logs, and evidence
+3. **PLAN** - Generate and test hypotheses systematically
+4. **EXECUTE** - Implement proven fix, test, and validate
+
+**What it does:**
+- Delegates to `error-analysis-specialist` for systematic diagnosis
+- Enforces TAPE checkpoints (no Execute without proven root cause)
+- Implements fixes via `fix-implementation-specialist`
+- Validates with `test-analyzer` (no regressions)
+- Extracts debugging patterns for future reference
+
+**Output:** Complete debugging session report with resolution metrics.
+
+**Philosophy:** "Think twice, code once." No trial-and-error. Every fix must be based on proven root cause.
+
+---
+
+### `/code/refactor` - Smart Refactoring Router
+
+**Auto-detects project type and delegates to language-specific specialists**
+
+Intelligent code quality improvements with automatic project detection. Routes to Go, JavaScript, PHP, Python, or Rust specialists based on your codebase.
+
+```bash
+# Auto-detect and refactor
+/code/refactor
+
+# Focus on specific area
+/code/refactor logging
+/code/refactor performance
+/code/refactor testing
+```
+
+**Auto-detection:**
+- Checks for `go.mod` → `go-specialist`
+- Checks for `package.json` → `js-specialist` (or `react-specialist`, `nextjs-specialist`)
+- Checks for `composer.json` → `php-specialist`
+- Checks for `requirements.txt`/`pyproject.toml` → Python specialist
+- Checks for `Cargo.toml` → Rust specialist
+
+**Refactoring priorities:**
+1. **Reusability-first design** - Pure functions, dependency injection, composable code
+2. **Simplify** - Reduce complexity, clear naming
+3. **Organize** - Proper structure, separation of concerns
+4. **Clean** - Remove dead code, eliminate duplication (3+ occurrences → extract)
+5. **Clarify** - Self-documenting code, explicit logic
+
+**Output:**
+- List of refactorings performed with before/after samples
+- Duplication report with extraction recommendations
+- Domain-specific utils file suggestions
+- Remaining opportunities for future work
+
+**Philosophy:** "Make it better, not perfect - with reusability from day one."
 
 ---
 
@@ -122,30 +247,86 @@ git clone https://github.com/dotcommander/claude-commands.git
 # Copy to Claude Code commands directory
 cp -r claude-commands/code ~/.claude/commands/
 cp claude-commands/learn.md ~/.claude/commands/
+cp claude-commands/ok.md ~/.claude/commands/
 
 # Verify installation
 ls ~/.claude/commands/code/
+ls ~/.claude/commands/ok.md
 ```
 
 ### Individual Command Install
 
 ```bash
-# Install repomix
+# Universal router (recommended starting point)
+curl -o ~/.claude/commands/ok.md \
+  https://raw.githubusercontent.com/dotcommander/claude-commands/main/ok.md
+
+# Code commands
 curl -o ~/.claude/commands/code/repomix.md \
   https://raw.githubusercontent.com/dotcommander/claude-commands/main/code/repomix.md
-
-# Install learn
-curl -o ~/.claude/commands/learn.md \
-  https://raw.githubusercontent.com/dotcommander/claude-commands/main/learn.md
-
-# Install dry
+curl -o ~/.claude/commands/code/debug.md \
+  https://raw.githubusercontent.com/dotcommander/claude-commands/main/code/debug.md
+curl -o ~/.claude/commands/code/refactor.md \
+  https://raw.githubusercontent.com/dotcommander/claude-commands/main/code/refactor.md
 curl -o ~/.claude/commands/code/dry.md \
   https://raw.githubusercontent.com/dotcommander/claude-commands/main/code/dry.md
+
+# Learning command
+curl -o ~/.claude/commands/learn.md \
+  https://raw.githubusercontent.com/dotcommander/claude-commands/main/learn.md
 ```
 
 ---
 
 ## 🎯 Usage Examples
+
+### Universal Router (Start Here!)
+
+```bash
+# Let /ok analyze your context and route automatically
+/ok
+
+# It detects your situation and picks the right command:
+# - Errors? Routes to /code/debug
+# - Code smells? Routes to /code/refactor
+# - Duplicates? Routes to /code/dry
+# - Documentation? Routes to /learn
+# - Complex project? Routes to workflow commands
+```
+
+### Debugging Workflow (TAPE Methodology)
+
+```bash
+# 1. Start systematic debugging
+/code/debug "Tests failing after dependency update"
+
+# 2. TAPE phases execute automatically:
+#    - THINK: Understand system architecture
+#    - ANALYZE: Gather error symptoms and evidence
+#    - PLAN: Test hypotheses systematically
+#    - EXECUTE: Implement proven fix
+
+# 3. Validation runs automatically (no regressions)
+
+# 4. Review debugging session report
+```
+
+### Refactoring Workflow
+
+```bash
+# 1. Auto-detect project and refactor
+/code/refactor
+
+# 2. Focus on specific improvements
+/code/refactor performance
+/code/refactor logging
+
+# 3. Clean up workspace after refactoring
+/code/dry
+
+# 4. Validate with tests
+npm test  # or go test, phpunit, pytest
+```
 
 ### Production Hardening Workflow
 
@@ -154,12 +335,15 @@ curl -o ~/.claude/commands/code/dry.md \
 /code/repomix
 
 # 2. Review AUDIT.md and implement Phase 1 critical fixes
-# ... make fixes ...
+/code/debug  # for any issues found
 
-# 3. Clean up workspace
+# 3. Refactor based on audit findings
+/code/refactor
+
+# 4. Clean up workspace
 /code/dry
 
-# 4. Re-audit to verify improvements
+# 5. Re-audit to verify improvements
 /code/repomix
 ```
 
@@ -176,18 +360,28 @@ curl -o ~/.claude/commands/code/dry.md \
 # 4. Validate with tests/benchmarks
 ```
 
-### Code Quality Workflow
+### Complete Code Quality Workflow
 
 ```bash
-# 1. DRY optimization
+# 1. Let /ok analyze and route
+/ok
+
+# 2. Debug any issues first (TAPE methodology)
+/code/debug
+
+# 3. Refactor for quality
+/code/refactor
+
+# 4. DRY optimization
 /code/dry
 
-# 2. Audit for production readiness
+# 5. Production audit
 /code/repomix
 
-# 3. Implement high-priority fixes
+# 6. Implement remaining high-priority fixes
+/code/refactor
 
-# 4. Final cleanup
+# 7. Final cleanup
 /code/dry
 ```
 

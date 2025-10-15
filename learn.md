@@ -1,39 +1,39 @@
 ---
 name: learn
-description: Context-efficient deep learning extraction using subagent architecture - identifies genuinely new patterns from documentation recursively
+description: Context-efficient deep learning extraction using batch processing - identifies genuinely new patterns from documentation recursively
 usage: /learn <path> [--output=<path>] [--focus=<topic>]
 examples:
   - /learn docs/languages/go
   - /learn docs/frameworks/svelte --output=~/learnings/svelte.md
   - /learn vendor/package/src --focus="concurrency patterns"
 notes:
-  - Uses subagent architecture for context efficiency (can handle 1000+ files)
-  - Each subagent processes 10-15 files and returns insights only
-  - Main coordinator synthesizes subagent outputs into final document
+  - Uses batch processing for context efficiency (can handle 1000+ files)
+  - Each batch processes 10-15 files and returns insights only
+  - Main coordinator synthesizes batch outputs into final document
   - Filters for genuinely new knowledge (not training data synthesis)
 ---
 
-# Deep Learning Extraction Protocol (Subagent-Driven)
+# Deep Learning Extraction Protocol (Batch Processing)
 
-**Architecture**: You are the **coordinator**. You orchestrate subagents to extract knowledge, then synthesize their findings.
+**Architecture**: You are the **coordinator**. You orchestrate parallel batch processing to extract knowledge, then synthesize the findings.
 
 ## Context Efficiency Strategy
 
 **Problem**: Reading all files in main context exhausts 200k token budget quickly.
 
-**Solution**: Subagent architecture
+**Solution**: Parallel batch processing
 ```
 Main Coordinator (you)
 ├─ Discovers files (Glob tool)
 ├─ Batches files (10-15 per batch)
-├─ Dispatches subagents (one per batch)
+├─ Processes batches in parallel
 ├─ Collects insights (not raw content)
 └─ Synthesizes final document
 
-Subagent #1 (files 1-15)
+Batch #1 (files 1-15)
 └─ Returns: 5-10 insights (500-1000 tokens)
 
-Subagent #2 (files 16-30)
+Batch #2 (files 16-30)
 └─ Returns: 5-10 insights (500-1000 tokens)
 
 ...
@@ -51,7 +51,7 @@ Result: Can process 500+ files with <50k tokens
 
 ## Execution Protocol
 
-### Phase 1: Discovery (Main Coordinator Only)
+### Phase 1: Discovery
 
 **Step 1: Discover all documentation files recursively**
 
@@ -69,7 +69,7 @@ Use Glob tool with multiple patterns in **parallel**:
 Total files discovered: {count}
 
 Batching strategy:
-- Batch size: 10-15 files per subagent (optimal for deep analysis)
+- Batch size: 10-15 files per batch (optimal for deep analysis)
 - Total batches: ceil({count} / 12)
 - If >500 files: Report warning, continue with first 500
 ```
@@ -85,9 +85,9 @@ Batching strategy:
 
 ---
 
-### Phase 2: Subagent Dispatch (Parallel Execution)
+### Phase 2: Batch Processing (Parallel Execution)
 
-**For each batch, dispatch a subagent with this prompt:**
+**For each batch, process files in parallel with this approach:**
 
 ```markdown
 **Task**: Extract genuinely new knowledge from these documentation files.
@@ -205,31 +205,23 @@ If uncertain whether insight relates to focus, EXCLUDE (bias toward precision).
 **END OF SUBAGENT PROMPT**
 ```
 
-**Dispatch all subagents in parallel** (single message, multiple Task invocations):
+**Process all batches in parallel**:
 
-```xml
-<invoke name="Task">
-  <subagent_type>general-purpose</subagent_type>
-  <description>Extract insights from batch 1/10</description>
-  <prompt>{subagent prompt with batch 1 files}</prompt>
-</invoke>
-<invoke name="Task">
-  <subagent_type>general-purpose</subagent_type>
-  <description>Extract insights from batch 2/10</description>
-  <prompt>{subagent prompt with batch 2 files}</prompt>
-</invoke>
-...
-```
+For optimal performance, you can process multiple batches simultaneously using the Task tool if available, or process sequentially if needed. Each batch should:
+1. Read the 10-15 assigned files
+2. Extract insights using the novelty classification framework
+3. Return structured JSON output only
+4. Skip raw content to save tokens
 
-**Wait for all subagents to complete.**
+**Wait for all batches to complete.**
 
 ---
 
-### Phase 3: Synthesis (Main Coordinator)
+### Phase 3: Synthesis
 
-**Step 1: Collect all subagent responses**
+**Step 1: Collect all batch responses**
 
-Parse JSON from each subagent:
+Parse JSON from each batch:
 - Total insights: {sum of all insights}
 - Tier 2 (Implementation): {count}
 - Tier 3 (Architectural): {count}
@@ -238,7 +230,7 @@ Parse JSON from each subagent:
 
 **Step 2: Deduplicate insights**
 
-If multiple subagents found same pattern:
+If multiple batches found same pattern:
 - Keep highest confidence version
 - Merge "when to apply" scenarios
 - Note pattern appeared in multiple files
@@ -532,14 +524,14 @@ Analyzing first 500 files (42 batches)...
 - /learn {{arg1}}/subdirectory --focus="specific-topic"
 ```
 
-**Scenario: Subagent returns Tier 1 only**
+**Scenario: Batch returns Tier 1 only**
 ```
 ⚠️  Batch {num}: 0 insights extracted (all Tier 1 - training data synthesis).
 
 This may indicate:
 - Documentation is too basic/generic
 - Focus topic doesn't match content
-- Subagent filtering too strict
+- Filtering too strict
 
 Continuing with remaining batches...
 ```
@@ -556,4 +548,4 @@ Stopping after batch {num}/{total}.
 
 ---
 
-**Philosophy**: Transform documentation reading from context-exhausting raw ingestion to efficient insight extraction through specialized subagents. Quality over quantity - 10 genuinely new insights beats 100 training-data rehashes.
+**Philosophy**: Transform documentation reading from context-exhausting raw ingestion to efficient insight extraction through parallel batch processing. Quality over quantity - 10 genuinely new insights beats 100 training-data rehashes.

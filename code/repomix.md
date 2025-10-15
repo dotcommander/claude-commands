@@ -313,32 +313,19 @@ fi
 **Success Criteria**: repomix-output.md created and validated
 **Next**: Mark Phase 1 complete, proceed to Phase 2
 
-### Phase 2: Gemini Analysis with Specialist Validation (Consolidated)
+### Phase 2: Gemini Analysis and Validation (Consolidated)
 
-**Objective**: Execute production-focused audit with gemini + specialist validation, output single AUDIT.md
+**Objective**: Execute production-focused audit with gemini, then validate and consolidate into single AUDIT.md
 
-**ACTION**: Delegate to gemini-specialist for analysis, then language specialist for validation and consolidation
+**ACTION**: Run Gemini analysis, then validate findings and create comprehensive audit report
 
-```
-Task(
-  subagent_type="gemini-specialist",
-  description="Production-focused codebase audit via Gemini",
-  prompt="PRODUCTION HARDENING AUDIT: Analyze repomix-output.md for production readiness
+### Step 1: Execute Gemini Analysis
 
-TARGET DIRECTORY: $TARGET_DIR
-PROJECT TYPE: $PROJECT_TYPE
-OUTPUT FILE: repomix-output.md
+Run Gemini CLI with production-focused prompt:
 
-🎯 ANALYSIS FOCUS:
-Focus on PRODUCTION HARDENING (caching, observability, security, performance).
-Avoid critiquing core infrastructure or incomplete code paths.
-Only flag issues with measurable production impact.
-
-Execute Gemini analysis with this production-focused prompt:
-
-\`\`\`bash
-cd \"$TARGET_DIR\"
-gemini -p \"@repomix-output.md
+```bash
+cd "$TARGET_DIR"
+gemini -p "@repomix-output.md
 
 ## Production Hardening Audit
 
@@ -418,48 +405,33 @@ Provide:
 3. **Medium Priority (This Month)**: Performance and observability gaps
 
 Focus on measurable production impact, not theoretical concerns.
-\"
-\`\`\`
+"
 
-OUTPUT REQUIREMENTS:
-- Save raw gemini output to audit-raw.md (for reference only)
-- Provide structured findings in response
-- Include file:line references where possible
-- Focus on actionable production hardening
+# Save output
+gemini -p "@repomix-output.md [prompt above]" > audit-raw.md
+```
 
-If gemini analysis fails, provide detailed error information."
-)
+**If gemini analysis fails**, check:
+- Gemini CLI installation
+- API key configuration
+- File size (too large for processing)
 
-# After gemini-specialist completes, delegate to language specialist for validation
-# Determine which specialist based on project type
-SPECIALIST_TYPE="go-specialist"
-case "$PROJECT_TYPE" in
-  "javascript"|"typescript") SPECIALIST_TYPE="js-specialist" ;;
-  "php") SPECIALIST_TYPE="php-specialist" ;;
-  "python") SPECIALIST_TYPE="python-specialist" ;;
-  "rust") SPECIALIST_TYPE="rust-specialist" ;;
-esac
+### Step 2: Validate and Consolidate Findings
 
-Task(
-  subagent_type="$SPECIALIST_TYPE",
-  description="Validate audit and generate consolidated AUDIT.md",
-  prompt="AUDIT VALIDATION & CONSOLIDATION: Review gemini findings and generate single AUDIT.md
+Review Gemini's findings and create comprehensive AUDIT.md:
 
-PROJECT TYPE: $PROJECT_TYPE
-GEMINI OUTPUT: audit-raw.md
-TARGET: $TARGET_DIR
+**VALIDATION REQUIREMENTS:
 
-VALIDATION REQUIREMENTS:
-
-1. PARSE AND VERIFY FINDINGS
+**1. PARSE AND VERIFY FINDINGS**
    - Extract all findings from audit-raw.md
-   - Verify file:line references against actual code (use Read tool sparingly)
-   - Filter out false positives (overly critical analysis of complete code)
-   - Add specialist context where gemini lacked depth
+   - Verify file:line references against actual code (use Read tool for spot checks)
+   - Filter out false positives (overly critical analysis of working code)
+   - Add $PROJECT_TYPE-specific context where needed
    - Re-assess severity based on production impact
 
-2. CONSOLIDATE INTO SINGLE AUDIT.md
-   Create ONE comprehensive file with this structure:
+**2. CONSOLIDATE INTO SINGLE AUDIT.md**
+
+Create ONE comprehensive file with this structure:
 
 \`\`\`markdown
 # Production Audit: $PROJECT_TYPE Project
@@ -572,25 +544,26 @@ VALIDATION REQUIREMENTS:
 **Audit Timestamp**: $(date +%Y-%m-%d\ %H:%M:%S)
 \`\`\`
 
-QUALITY STANDARDS:
+**QUALITY STANDARDS:**
 - Every finding must have verified file location or be marked as systemic
 - Recommendations must be $PROJECT_TYPE-specific with code examples
 - Severity must reflect real production impact, not theoretical risks
-- Filter out gemini findings that critique complete, working infrastructure
-- Add specialist insights where gemini lacked domain expertise
+- Filter out findings that critique complete, working infrastructure
+- Add language-specific insights where gemini lacked domain expertise
 - Consolidate duplicate findings into single entries
 - Provide realistic effort estimates based on codebase complexity
 
-OUTPUT DELIVERABLE:
-- Single file: AUDIT.md (comprehensive, production-focused audit)
-- Clean up: Remove audit-raw.md after consolidation (keep repomix-output.md for reference)
+**Use Write tool** to create AUDIT.md with the structure above.
 
-SUCCESS CRITERIA:
+**OUTPUT DELIVERABLE:**
+- Single file: AUDIT.md (comprehensive, production-focused audit)
+- Optional: Keep audit-raw.md for reference or delete after consolidation
+
+**SUCCESS CRITERIA:**
 - Single AUDIT.md file contains all validated findings
 - All findings are actionable with specific file locations
 - Roadmap is realistic and prioritized by production impact
-- False positives identified and documented"
-)
+- False positives identified and documented
 ```
 
 **Success Criteria**: Single AUDIT.md file with validated, actionable findings
