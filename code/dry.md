@@ -1,3 +1,11 @@
+---
+description: Workspace cleanup and DRY optimization with strict phase ordering
+argument-hint: <focus-area-or-empty>
+allowed-tools: Bash(*), Read, Grep, Glob
+---
+
+# /code/dry - Workspace Cleanup & DRY Optimization
+
 Eliminate redundancy through DRY principles, then organize the workspace to pristine condition. Execute in strict order:
 
 ## PHASE 0: PRE-FLIGHT CHECK
@@ -36,7 +44,7 @@ git diff --stat
 ```bash
 # FILES TO DELETE IMMEDIATELY:
 ❌ main-v2.js, main-final.js, main-old.js, main-backup.js
-❌ config-simple.json, config-full.json, config-complex.json  
+❌ config-simple.json, config-full.json, config-complex.json
 ❌ utils-v1.py, utils-v2.py, utils-latest.py
 ❌ index-2.html, index-new.html, index-final.html
 ❌ *-copy.*, *-backup.*, *-old.*, *-new.*, *-temp.*
@@ -207,7 +215,7 @@ docs/
 ```bash
 # Remove compiled/generated files:
 find . -name "*.pyc" -delete
-find . -name "*.pyo" -delete  
+find . -name "*.pyo" -delete
 find . -name "__pycache__" -type d -exec rm -rf {} +
 find . -name "*.class" -delete
 find . -name "*.o" -delete
@@ -265,7 +273,7 @@ find . -name ".nuxt" -type d -exec rm -rf {} +
 git add -p src/ lib/ utils/  # Review each change
 git commit -m "refactor: eliminate duplication and simplify code"
 
-# 2. Second commit: File organization  
+# 2. Second commit: File organization
 git add docs/ scripts/ tests/ config/
 git commit -m "chore: organize files into proper directories"
 

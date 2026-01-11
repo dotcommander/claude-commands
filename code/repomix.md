@@ -695,4 +695,6 @@ Audit workflow succeeds when:
 
 ---
 
-**PHILOSOPHY**: Streamlined production audits that focus on measurable impact. Consolidates 11 files into 2-3 essential deliverables (AUDIT.md, repomix-output.md, .repomixignore). Prioritizes production hardening over theoretical critiques. The orchestrator coordinates specialists (gemini + language-specific) for validation and false-positive filtering.
+**PHILOSOPHY**: Streamlined production audits that focus on measurable impact. Consolidates 11 files into 2-3 essential deliverables (AUDIT.md, repomix-output.md, .repomixignore). Prioritizes production hardening over theoretical critiques.
+
+The orchestrator coordinates specialists (gemini + language-specific) for validation and false-positive filtering.

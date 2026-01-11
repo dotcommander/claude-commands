@@ -4,7 +4,7 @@ A curated collection of powerful commands for [Claude Code](https://claude.ai/co
 
 ## 📚 Documentation
 
-**Detailed command documentation available in [docs/](docs/)**
+**Detailed command documentation available inline in each command file**
 
 Each command has comprehensive documentation including:
 - When to use it (specific scenarios and triggers)
@@ -14,12 +14,12 @@ Each command has comprehensive documentation including:
 - Success criteria (expected outcomes)
 
 Quick links:
-- [/ok documentation](docs/ok.md) - Universal router
-- [/code/debug documentation](docs/debug.md) - TAPE debugging
-- [/code/refactor documentation](docs/refactor.md) - Smart refactoring
-- [/code/dry documentation](docs/dry.md) - DRY optimization
-- [/code/repomix documentation](docs/repomix.md) - Production audit
-- [/learn documentation](docs/learn.md) - Deep learning
+- [/ok](ok.md) - Universal router
+- [/code/debug](code/debug.md) - TAPE debugging
+- [/code/refactor](code/refactor.md) - Smart refactoring
+- [/code/dry](code/dry.md) - DRY optimization
+- [/code/repomix](code/repomix.md) - Production audit
+- [/learn](learn.md) - Deep learning
 
 ---
 

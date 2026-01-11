@@ -20,3 +20,6 @@
 
 # Project-specific CLAUDE.md (user instructions, not for distribution)
 CLAUDE.md
+
+# Backup directories (from cleanup operations)
+/tmp/
