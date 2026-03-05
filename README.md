@@ -15,7 +15,7 @@ git clone https://github.com/dotcommander/claude-commands.git
 claude --plugin-dir ./claude-commands
 ```
 
-Commands are available immediately in that session as `/claude-commands:debug`, `/claude-commands:refactor`, etc.
+Commands are available immediately in that session as `/dc:debug`, `/dc:refactor`, etc.
 
 ### Option 2: Install from marketplace
 
@@ -34,11 +34,11 @@ Plugin commands are namespaced to prevent conflicts with other plugins:
 
 | You type | What runs |
 |----------|-----------|
-| `/claude-commands:debug` | The debug command |
-| `/claude-commands:refactor` | The refactor command |
-| `/claude-commands:tasks` | The tasks command |
-| `/claude-commands:next` | The next command |
-| `/claude-commands:learn` | The learn command |
+| `/dc:debug` | The debug command |
+| `/dc:refactor` | The refactor command |
+| `/dc:tasks` | The tasks command |
+| `/dc:next` | The next command |
+| `/dc:learn` | The learn command |
 
 ---
 
@@ -51,10 +51,10 @@ Fixes bugs systematically instead of guessing.
 **When to use it:** You have an error message, a failing test, or unexpected behavior and you want a proper diagnosis — not just "try this and see."
 
 ```bash
-/claude-commands:debug "ImportError: module 'requests' not found"
-/claude-commands:debug "Server returns 500 errors intermittently"
-/claude-commands:debug "Tests failing after dependency update"
-/claude-commands:debug   # no args — Claude examines your current context
+/dc:debug "ImportError: module 'requests' not found"
+/dc:debug "Server returns 500 errors intermittently"
+/dc:debug "Tests failing after dependency update"
+/dc:debug   # no args — Claude examines your current context
 ```
 
 **What you get:** Claude works through the problem in four stages (Think, Analyze, Plan, Execute), confirms the root cause before touching any code, implements the fix, and runs your tests to verify nothing broke. You get a summary of what was wrong and how it was fixed.
@@ -68,12 +68,12 @@ Cleans up your code with language-aware improvements.
 **When to use it:** Your code works but it's getting messy — duplicated logic, functions doing too much, hard to read. Or you've just finished a feature and want to clean up before committing.
 
 ```bash
-/claude-commands:refactor              # auto-detect project type and refactor everything
-/claude-commands:refactor logging      # focus on a specific area
-/claude-commands:refactor performance
-/claude-commands:refactor testing
-/claude-commands:refactor dry          # DRY optimization + workspace cleanup
-/claude-commands:refactor dry src/     # DRY a specific directory
+/dc:refactor              # auto-detect project type and refactor everything
+/dc:refactor logging      # focus on a specific area
+/dc:refactor performance
+/dc:refactor testing
+/dc:refactor dry          # DRY optimization + workspace cleanup
+/dc:refactor dry src/     # DRY a specific directory
 ```
 
 **What you get:** Claude detects your project type (Go, JavaScript, PHP, Python, Rust) and applies language-appropriate improvements — extracting duplicated code into reusable functions, simplifying complex logic, improving naming, and removing dead code. In `dry` mode, it also eliminates version sprawl, removes dead code, organizes your workspace, and commits changes in logical groups. You get a list of changes made and any remaining opportunities.
@@ -87,9 +87,9 @@ Turns rough notes into structured specs with atomic task breakdowns.
 **When to use it:** You have a feature idea, a migration plan, or messy notes and you want a clear spec with numbered implementation steps before writing any code.
 
 ```bash
-/claude-commands:tasks "add caching layer to API"
-/claude-commands:tasks "migrate to postgres"
-/claude-commands:tasks notes.md
+/dc:tasks "add caching layer to API"
+/dc:tasks "migrate to postgres"
+/dc:tasks notes.md
 ```
 
 **What you get:** A DAWN-structured spec with atomic implementation steps, a verification matrix showing how to prove each step works, and a rollback plan in case things go wrong.
@@ -103,9 +103,9 @@ Analyzes your codebase and suggests what to build next.
 **When to use it:** You've finished a sprint, are planning the next one, or just want an objective look at what opportunities exist in a codebase — features to add, improvements to make, innovations worth exploring.
 
 ```bash
-/claude-commands:next                    # analyze current project
-/claude-commands:next src/               # focus on a specific directory
-/claude-commands:next ~/projects/my-app  # analyze a different project
+/dc:next                    # analyze current project
+/dc:next src/               # focus on a specific directory
+/dc:next ~/projects/my-app  # analyze a different project
 ```
 
 **What you get:** A prioritized roadmap of features, improvements, and innovations — each with a specific file location, rationale, and effort estimate. Parallel scouts analyze different angles and a synthesizer ranks the results by impact.
@@ -119,11 +119,11 @@ Extracts useful insights from documentation you point it at.
 **When to use it:** You have a new library to learn, just cloned a vendor package, or want to understand a framework's docs without reading everything yourself.
 
 ```bash
-/claude-commands:learn docs/languages/go
-/claude-commands:learn https://go.dev/doc/go1.26
-/claude-commands:learn vendor/package/src --focus="concurrency patterns"
-/claude-commands:learn docs/frameworks/svelte --output=~/learnings/svelte.md
-/claude-commands:learn compare https://other-project.dev/docs   # compare two sources
+/dc:learn docs/languages/go
+/dc:learn https://go.dev/doc/go1.26
+/dc:learn vendor/package/src --focus="concurrency patterns"
+/dc:learn docs/frameworks/svelte --output=~/learnings/svelte.md
+/dc:learn compare https://other-project.dev/docs   # compare two sources
 ```
 
 **What you get:** A structured learning document with insights organized by value — counter-intuitive findings first, then architectural patterns, then implementation details. Training-data-level obvious facts get filtered out so you only see things worth reading.
@@ -174,22 +174,22 @@ Commands work well in sequence:
 
 **Fix a bug, then clean up:**
 ```bash
-/claude-commands:debug "error description"
-/claude-commands:refactor dry
+/dc:debug "error description"
+/dc:refactor dry
 ```
 
 **Full code quality pass:**
 ```bash
-/claude-commands:debug          # fix any issues first
-/claude-commands:refactor       # improve code structure
-/claude-commands:refactor dry   # eliminate duplication and clean workspace
+/dc:debug          # fix any issues first
+/dc:refactor       # improve code structure
+/dc:refactor dry   # eliminate duplication and clean workspace
 ```
 
 **Learn a new library, then apply it:**
 ```bash
-/claude-commands:learn vendor/new-library/docs --focus="core patterns"
+/dc:learn vendor/new-library/docs --focus="core patterns"
 # review the output, then:
-/claude-commands:refactor  # apply what you learned
+/dc:refactor  # apply what you learned
 ```
 
 ---

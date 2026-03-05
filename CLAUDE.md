@@ -57,7 +57,7 @@ Commands are thin dispatchers that route to agents via `Task()`. Agents load ski
 
 ### Namespacing
 
-When installed as a plugin, commands are namespaced: `/claude-commands:debug`, `/claude-commands:refactor`, etc.
+When installed as a plugin, commands are namespaced: `/dc:debug`, `/dc:refactor`, etc.
 
 ## Command Patterns
 
@@ -100,7 +100,7 @@ Batch processing with Tier 2-4 novelty classification. Supports directories, fil
 claude --plugin-dir ./claude-commands
 
 # Test a command
-/claude-commands:debug "test error"
+/dc:debug "test error"
 
 # Load alongside other plugins
 claude --plugin-dir ./claude-commands --plugin-dir ./other-plugin
