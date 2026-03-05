@@ -18,8 +18,11 @@
 # Compiled files
 *.compiled
 
-# Project-specific CLAUDE.md (user instructions, not for distribution)
-CLAUDE.md
+# Working directories (generated at runtime)
+.work/
+
+# Claude local settings (user-specific)
+.claude/
 
 # Backup directories (from cleanup operations)
 /tmp/
