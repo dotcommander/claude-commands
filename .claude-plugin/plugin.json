@@ -1,0 +1,12 @@
+{
+  "name": "claude-commands",
+  "version": "2.0.0",
+  "description": "Five slash commands for Claude Code: TAPE debugging, smart refactoring, DRY optimization, spec generation, and deep learning extraction.",
+  "author": {
+    "name": "dotcommander"
+  },
+  "homepage": "https://github.com/dotcommander/claude-commands",
+  "repository": "https://github.com/dotcommander/claude-commands",
+  "license": "MIT",
+  "keywords": ["debugging", "refactoring", "learning", "planning", "tasks", "productivity", "workflow"]
+}
