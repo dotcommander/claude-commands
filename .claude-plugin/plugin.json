@@ -1,5 +1,5 @@
 {
-  "name": "claude-commands",
+  "name": "dc",
   "version": "2.0.0",
   "description": "Five slash commands for Claude Code: TAPE debugging, smart refactoring, DRY optimization, spec generation, and deep learning extraction.",
   "author": {
